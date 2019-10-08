@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# Setup robolab catkin workspace at specified directory.
+# 
+# Usage:
+# setup_catkin_workspace <path/to/ws> <path/to/parent>
+#
+set -e
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+if [ "$#" != 2 ]; then
+    echo 'Usage:
+    setup_catkin_workspace <path/to/ws> <path/to/parent/ws>'
+fi
+ws=$(realpath "$1")
+parent=$(realpath "$2")
+
+# Clone main repositories from rosinstall files.
+mkdir -p $ws/src
+cd "$ws/src"
+wstool init
+# Keep first entry with given key (-k).
+# Make sure there are no duplicates in these curated lists.
+wstool merge -k $script_dir/../rosinstall/robolab.rosinstall
+wstool up -j 8
+
+# Initialize, configure, and build catkin workspace.
+cd $ws
+catkin init
+catkin config --extend "$parent"
+catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release
+catkin build -c
