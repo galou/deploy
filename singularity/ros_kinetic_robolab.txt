@@ -1,0 +1,47 @@
+Bootstrap: docker
+From: ros:kinetic-robot
+
+%files
+    sudo /usr/bin/sudo
+
+%runscript
+    /opt/ros/robolab/devel/env.sh "$@"
+
+%post
+    packages="
+    build-essential
+    crudini
+    git-gui
+    mc
+    net-tools
+    nmap
+    openssh-client
+    openssh-server
+    python-catkin-tools
+    python-pip
+    python-pip-whl
+    python-rosinstall
+    python-rosinstall-generator
+    python-scipy
+    python3-scipy
+    python-virtualenv
+    python-wstool
+    ros-kinetic-desktop-full
+    ros-kinetic-kobuki-description
+    ros-kinetic-octomap-ros
+    ros-kinetic-tf2-geometry-msgs
+    ros-kinetic-tf2-sensor-msgs
+    screen
+    sshpass
+    terminator
+    tmux
+    tree
+    vim
+    "
+    apt-get -y update && apt-get -y install $packages
+    apt-get clean
+    
+    cd /tmp
+    git clone https://gitlab.fel.cvut.cz/robolab/deploy.git
+    ws=/opt/ros/robolab
+    deploy/scripts/setup_catkin_workspace "$ws" /opt/ros/kinetic
