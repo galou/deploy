@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: ros:kinetic-robot
+From: ros:melodic-robot
 
 %files
     sudo /usr/bin/sudo
