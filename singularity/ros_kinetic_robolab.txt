@@ -41,7 +41,8 @@ From: ros:kinetic-robot
     apt-get -y update && apt-get -y install $packages
     apt-get clean
     
-    cd /tmp
+    tmp="$(mktemp -d)"
+    cd "$tmp"
     git clone https://gitlab.fel.cvut.cz/robolab/deploy.git
     ws=/opt/ros/robolab
     deploy/scripts/setup_catkin_workspace "$ws"
