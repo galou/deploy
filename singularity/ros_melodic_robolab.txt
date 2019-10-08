@@ -26,11 +26,10 @@ From: ros:kinetic-robot
     python3-scipy
     python-virtualenv
     python-wstool
-    ros-kinetic-desktop-full
-    ros-kinetic-kobuki-description
-    ros-kinetic-octomap-ros
-    ros-kinetic-tf2-geometry-msgs
-    ros-kinetic-tf2-sensor-msgs
+    ros-melodic-desktop-full
+    ros-melodic-octomap-ros
+    ros-melodic-tf2-geometry-msgs
+    ros-melodic-tf2-sensor-msgs
     screen
     sshpass
     terminator

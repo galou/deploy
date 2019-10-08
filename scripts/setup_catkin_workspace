@@ -1,19 +1,32 @@
 #!/bin/bash
-#
-# Setup robolab catkin workspace at specified directory.
-# 
-# Usage:
-# setup_catkin_workspace <path/to/ws> <path/to/parent>
-#
 set -e
-script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-if [ "$#" != 2 ]; then
-    echo 'Usage:
-    setup_catkin_workspace <path/to/ws> <path/to/parent/ws>'
-fi
-ws=$(realpath "$1")
-parent=$(realpath "$2")
+# Parse arguments.
+usage="Setup robolab catkin workspace at specified directory.
+
+Usage:
+    setup_catkin_workspace <workspace>
+
+Options (environmental variables):
+- extend:   Workspace to extend.
+- ros:      ROS distribution (kinetic/melodic).
+"
+
+[ "$#" -gt 1 ] && echo 'ERROR: Invalid number of arguments.' && echo && echo "$usage" && exit 1
+
+[ "$#" -ge 1 ] && ws="$1"
+[ ! "$ws" ] && ws="$(pwd)"
+[ ! "$ws" ] && echo 'ERROR: Workspace not specified.' && exit 2
+ws=$(realpath "$ws")
+
+[ ! "$ros" ] && [ -d /opt/ros/melodic ] && ros=melodic
+[ ! "$ros" ] && [ -d /opt/ros/kinetic ] && ros=kinetic
+[ ! "$ros" ] && echo 'ERROR: No ROS distribution found.' && exit 3
+
+[ ! "$extend" ] && extend=/opt/ros/$ros
+extend=$(realpath "$extend")
+[ ! "$extend" ] && echo 'ERROR: Extended workspace not specified.' && exit 3
 
 # Clone main repositories from rosinstall files.
 mkdir -p $ws/src
@@ -21,12 +34,13 @@ cd "$ws/src"
 wstool init
 # Keep first entry with given key (-k).
 # Make sure there are no duplicates in these curated lists.
-wstool merge -k $script_dir/../rosinstall/robolab.rosinstall
+wstool merge -k "$dir/../rosinstall/robolab.rosinstall"
+wstool merge -k "$dir/../rosinstall/robolab_$ros.rosinstall"
 wstool up -j 8
 
 # Initialize, configure, and build catkin workspace.
 cd $ws
 catkin init
-catkin config --extend "$parent"
+catkin config --extend "$extend"
 catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release
 catkin build -c

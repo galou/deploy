@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-cd "${script_dir}"
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+cd "${dir}"
 
 # Images ordered to reflect dependencies.
-for f in ros_kinetic_robolab; do
+for f in ros_kinetic_robolab ros_melodic_robolab; do
     sudo rm -f $f.simg
     sudo singularity build $f.simg $f.txt
     sudo chown $USER:$USER $f.simg
