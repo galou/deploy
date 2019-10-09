@@ -1,6 +1,9 @@
 Bootstrap: docker
 From: ros:melodic-robot
 
+%help
+    This image essentially contains ROS tuned for the teaching needs of the Czech Technical University, Faculty of Cybernetics. The main use is for the turtlebots in the Robolab (KN:E-130).
+
 %files
     sudo /usr/bin/sudo
 
@@ -9,10 +12,13 @@ From: ros:melodic-robot
 
 %post
     packages="
+    apt-utils
     build-essential
     crudini
+    dialog
     git-gui
     mc
+    nano
     net-tools
     nmap
     openssh-client
@@ -26,6 +32,8 @@ From: ros:melodic-robot
     python3-scipy
     python-virtualenv
     python-wstool
+    python3-pip
+    python3-scipy
     ros-melodic-desktop-full
     ros-melodic-octomap-ros
     ros-melodic-tf2-geometry-msgs
@@ -36,6 +44,7 @@ From: ros:melodic-robot
     tmux
     tree
     vim
+    wget
     "
     apt-get -y update && apt-get -y install $packages
     apt-get clean

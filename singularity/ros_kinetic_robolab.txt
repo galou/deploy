@@ -1,6 +1,9 @@
 Bootstrap: docker
 From: ros:kinetic-robot
 
+%help
+    This image essentially contains ROS tuned for the teaching needs of the Czech Technical University, Faculty of Cybernetics. The main use is for the turtlebots in the Robolab (KN:E-130).
+
 %files
     sudo /usr/bin/sudo
 
@@ -9,10 +12,13 @@ From: ros:kinetic-robot
 
 %post
     packages="
+    apt-utils
     build-essential
     crudini
+    dialog
     git-gui
     mc
+    nano
     net-tools
     nmap
     openssh-client
@@ -23,12 +29,15 @@ From: ros:kinetic-robot
     python-rosinstall
     python-rosinstall-generator
     python-scipy
-    python3-scipy
     python-virtualenv
     python-wstool
+    python3-pip
+    python3-scipy
     ros-kinetic-desktop-full
     ros-kinetic-kobuki-description
     ros-kinetic-octomap-ros
+    ros-kinetic-rplidar-ros
+    ros-kinetic-stdr-simulator
     ros-kinetic-tf2-geometry-msgs
     ros-kinetic-tf2-sensor-msgs
     screen
@@ -37,7 +46,10 @@ From: ros:kinetic-robot
     tmux
     tree
     vim
+    wget
     "
+    echo 'deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo xenial main' > /etc/apt/sources.list.d/realsense-public.list
+    apt-key adv --keyserver keys.gnupg.net --recv-key C8B3A55A6F3EFCDE || apt-key adv --keyserver hkp://keys.gnupg.net:80 --recv-key C8B3A55A6F3EFCDE
     apt-get -y update && apt-get -y install $packages
     apt-get clean
     
