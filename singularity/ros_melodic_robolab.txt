@@ -28,6 +28,7 @@ From: ros:melodic-robot
     python-wstool
     ros-melodic-desktop-full
     ros-melodic-octomap-ros
+    ros-melodic-rplidar-ros
     ros-melodic-tf2-geometry-msgs
     ros-melodic-tf2-sensor-msgs
     screen

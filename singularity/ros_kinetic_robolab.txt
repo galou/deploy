@@ -29,6 +29,7 @@ From: ros:kinetic-robot
     ros-kinetic-desktop-full
     ros-kinetic-kobuki-description
     ros-kinetic-octomap-ros
+    ros-kinetic-rplidar-ros
     ros-kinetic-tf2-geometry-msgs
     ros-kinetic-tf2-sensor-msgs
     screen
