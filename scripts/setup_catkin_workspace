@@ -10,7 +10,7 @@ Usage:
 Options (environmental variables):
 - extend:       Workspace to extend.
 - ros:          ROS distribution (kinetic/melodic).
-- rosdep:       Install dependencies via rosdep?
+- rosdep:       Install dependencies via rosdep? [y/n]
 - rosinstall:   Workspace rosinstall files.
 "
 
@@ -83,6 +83,7 @@ wstool up -j 8
 if [ "${rosdep}" = "y" ]; then
     cd "${ws}"
     rosdep update
+    # Ignore librealsense2 to avoid installing older packages from ROS repos.
     rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 --rosdistro ${ros} -r -y
 fi
 
