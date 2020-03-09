@@ -56,7 +56,7 @@ From: ros:melodic-robot
     vim
     wget
     "
-    apt-get -y update && apt-get -y install ${packages}
+    apt-get -y update && apt-get -y dist-upgrade && apt-get -y install ${packages}
 
     # Install Intel Realsense library.
     curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF6E65AC044F831AC80A06380C8B3A55A6F3EFCDE' | sudo apt-key add -
@@ -68,7 +68,7 @@ From: ros:melodic-robot
     "
     apt-get -y update && apt-get -y install ${packages}
     if ! modinfo uvcvideo | grep realsense; then
-        echo 'WARNING: Kernel not updated for Intel Realsense."
+        echo 'WARNING: Kernel not updated for Intel Realsense.'
     fi
 
     apt-get clean
@@ -78,4 +78,4 @@ From: ros:melodic-robot
     git clone https://gitlab.fel.cvut.cz/robolab/deploy.git
     cd deploy
     ws=/opt/ros/aro_melodic
-    ros=melodic rosinstall=rosinstall/aro_melodic.rosinstall scripts/setup_catkin_workspace "$ws"
+    ros=melodic rosinstall=$(pwd)/rosinstall/aro_melodic.rosinstall scripts/setup_catkin_workspace "$ws"
