@@ -1,33 +1,20 @@
 Bootstrap: docker
-From: ros:melodic-robot
+From: ros:melodic-ros-core
 
 %files
     sudo /usr/bin/sudo
 
 %post
-    packages="
-    curl
-    "
-    apt-get -y update && apt-get -y dist-upgrade && apt-get -y install ${packages}
-
-    # Install Intel Realsense library.
-    curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF6E65AC044F831AC80A06380C8B3A55A6F3EFCDE' | sudo apt-key add -
-    sudo sh -c 'echo "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo $(lsb_release -sc) main" > /etc/apt/sources.list.d/realsense.list'
-    packages="
-    librealsense2-dev
-    librealsense2-dkms
-    librealsense2-utils
-    "
-    apt-get -y update && apt-get -y install ${packages}
-    if ! modinfo uvcvideo | grep realsense; then
-        echo 'WARNING: Kernel not updated for Intel Realsense.'
-    fi
-
-    apt-get clean
-
     tmp="$(mktemp -d)"
     cd "$tmp"
     git clone https://gitlab.fel.cvut.cz/robolab/deploy.git
     cd deploy
+
+    apt-get update && apt-get dist-upgrade && xargs -a config/realsense.apt apt-get install -y
+
+    scripts/install_librealsense
+
     ws=/opt/ros/realsense
-    ros=melodic rosinstall=$(pwd)/rosinstall/realsense.rosinstall scripts/setup_catkin_workspace "$ws"
+    ros=melodic rosdep=y rosinstall=$(pwd)/config/realsense.rosinstall scripts/setup_catkin_workspace "${ws}"
+
+    apt-get clean
