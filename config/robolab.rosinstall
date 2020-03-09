@@ -4,7 +4,7 @@
     version: master
 - git:
     local-name: turtlebot
-    uri: https://gitlab.ciirc.cvut.cz/teaching/turtlebot.git
+    uri: https://gitlab.ciirc.cvut.cz/rop/teaching/turtlebot.git
     version: master
 - git:
     local-name: ros_numpy
