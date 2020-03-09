@@ -18,11 +18,12 @@ From: ros:melodic-robot
     git clone https://gitlab.fel.cvut.cz/robolab/deploy.git
     cd deploy
 
+    scripts/install_librealsense
+    scripts/install_gazebo
+
     apt-get update -y \
         && apt-get dist-upgrade -y \
         && xargs -a config/aro_melodic.apt apt-get install -y
-
-    scripts/install_librealsense
 
     ws=/opt/ros/aro_melodic
     ros=melodic \

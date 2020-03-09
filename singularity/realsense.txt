@@ -10,11 +10,11 @@ From: ros:melodic-ros-core
     git clone https://gitlab.fel.cvut.cz/robolab/deploy.git
     cd deploy
 
+    scripts/install_librealsense
+
     apt-get update -y \
         && apt-get dist-upgrade -y \
         && xargs -a config/realsense.apt apt-get install -y
-
-    scripts/install_librealsense
 
     ws=/opt/ros/realsense
     ros=melodic \
