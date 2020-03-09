@@ -83,7 +83,7 @@ wstool up -j 8
 if [ "${rosdep}" = "y" ]; then
     cd "${ws}"
     rosdep update
-    rosdep install --from-paths src --ignore-src --rosdistro ${ros} -r -y
+    rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 --rosdistro ${ros} -r -y
 fi
 
 # Initialize, configure, and build catkin workspace.
