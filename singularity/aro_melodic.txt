@@ -4,7 +4,7 @@ From: ros:melodic-robot
 %help
     ROS Melodic for the Autonomous Robotics (ARO) course taught at
     Department of Cybernetics, Czech Technical University in Prague.
-    Can be used with turtlebots in Robolab KN:E-130.
+    See https://gitlab.fel.cvut.cz/robolab for more information.
 
 %files
     sudo /usr/bin/sudo
@@ -13,71 +13,21 @@ From: ros:melodic-robot
     /opt/ros/aro_melodic/devel/env.sh "$@"
 
 %post
-    packages="
-    apt-utils
-    build-essential
-    crudini
-    curl
-    dialog
-    git
-    gitk
-    git-gui
-    mc
-    nano
-    net-tools
-    nmap
-    openssh-client
-    openssh-server
-    python-catkin-tools
-    python-pip
-    python-pip-whl
-    python-rosinstall
-    python-rosinstall-generator
-    python-scipy
-    python-virtualenv
-    python-wstool
-    python3-numpy
-    python3-pip
-    python3-scipy
-    ros-melodic-desktop-full
-    ros-melodic-ddynamic-reconfigure
-    ros-melodic-ddynamic-reconfigure-python
-    ros-melodic-ecl-streams
-    ros-melodic-kobuki-core
-    ros-melodic-kobuki-msgs
-    ros-melodic-octomap-ros
-    ros-melodic-rplidar-ros
-    ros-melodic-tf2-geometry-msgs
-    ros-melodic-tf2-sensor-msgs
-    ros-melodic-yocs-controllers
-    screen
-    sshpass
-    terminator
-    tmux
-    tree
-    vim
-    wget
-    "
-    apt-get -y update && apt-get -y dist-upgrade && apt-get -y install ${packages}
-
-    # Install Intel Realsense library.
-    curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF6E65AC044F831AC80A06380C8B3A55A6F3EFCDE' | sudo apt-key add -
-    sudo sh -c 'echo "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo $(lsb_release -sc) main" > /etc/apt/sources.list.d/realsense.list'
-    packages="
-    librealsense2-dev
-    librealsense2-dkms
-    librealsense2-utils
-    "
-    apt-get -y update && apt-get -y install ${packages}
-    if ! modinfo uvcvideo | grep realsense; then
-        echo 'WARNING: Kernel not updated for Intel Realsense.'
-    fi
-
-    apt-get clean
-
     tmp="$(mktemp -d)"
-    cd "$tmp"
+    cd "${tmp}"
     git clone https://gitlab.fel.cvut.cz/robolab/deploy.git
     cd deploy
+
+    apt-get update -y \
+        && apt-get dist-upgrade -y \
+        && xargs -a config/aro_melodic.apt apt-get install -y
+
+    scripts/install_librealsense
+
     ws=/opt/ros/aro_melodic
-    ros=melodic rosinstall=$(pwd)/rosinstall/aro_melodic.rosinstall scripts/setup_catkin_workspace "$ws"
+    ros=melodic \
+        rosdep=y \
+        rosinstall=$(pwd)/config/aro_melodic.rosinstall \
+        scripts/setup_catkin_workspace "${ws}"
+
+    apt-get clean
