@@ -10,6 +10,7 @@ Usage:
 Options (environmental variables):
 - extend:       Workspace to extend.
 - ros:          ROS distribution (kinetic/melodic).
+- rosdep:       Install dependencies via rosdep?
 - rosinstall:   Workspace rosinstall files.
 "
 
@@ -79,9 +80,11 @@ wstool merge -k ${rosinstall}
 wstool up -j 8
 
 # Install rosdep dependencies.
-cd "${ws}"
-rosdep update
-rosdep install --from-paths src --ignore-src --rosdistro ${ros} -r -y
+if [ "${rosdep}" = "y" ]; then
+    cd "${ws}"
+    rosdep update
+    rosdep install --from-paths src --ignore-src --rosdistro ${ros} -r -y
+fi
 
 # Initialize, configure, and build catkin workspace.
 cd "${ws}"
