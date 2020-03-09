@@ -1,18 +1,18 @@
 #!/bin/bash
+# Install Intel RealSense library.
 set -e
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-apt-get -y update && apt-get -y install curl
+sudo apt-get -y update && sudo apt-get -y install curl
 
-# Install Intel Realsense library.
-curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF6E65AC044F831AC80A06380C8B3A55A6F3EFCDE' | ../singularity/sudo apt-key add -
-../singularity/sudo sh -c 'echo "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo $(lsb_release -sc) main" > /etc/apt/sources.list.d/realsense.list'
+curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF6E65AC044F831AC80A06380C8B3A55A6F3EFCDE' | sudo apt-key add -
+sudo sh -c 'echo "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo $(lsb_release -sc) main" > /etc/apt/sources.list.d/realsense.list'
 packages="
 librealsense2-dev
 librealsense2-dkms
 librealsense2-utils
 "
-apt-get -y update && apt-get -y dist-upgrade && apt-get -y install ${packages}
+sudo apt-get -y update && sudo apt-get -y dist-upgrade && sudo apt-get -y install ${packages}
 if ! modinfo uvcvideo | grep realsense; then
-    echo 'WARNING: Kernel not updated for Intel Realsense.'
+    echo 'WARNING: Kernel not updated for Intel RealSense.'
 fi
