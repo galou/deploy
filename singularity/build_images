@@ -5,8 +5,14 @@ dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd "${dir}"
 
 # Images ordered to reflect dependencies.
-for f in ros_kinetic_robolab ros_melodic_robolab; do
-    sudo rm -f $f.simg
-    sudo singularity build $f.simg $f.txt
-    sudo chown $USER:$USER $f.simg
+files="
+aro_melodic
+ros_kinetic_robolab
+ros_melodic_robolab
+"
+# for f in ${files}; do
+for f in aro_melodic; do
+    sudo rm -f "${f}.simg"
+    sudo singularity build "${f}.simg" "${f}.txt" 2>&1 | tee "${f}.log" \
+        && sudo chown ${USER}:${USER} "${f}.simg"
 done
