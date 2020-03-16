@@ -5,6 +5,8 @@ From: ros:melodic-ros-core
     sudo /usr/bin/sudo
 
 %post
+    sudo apt-get update && sudo apt-get dist-upgrade
+
     tmp="$(mktemp -d)"
     cd "${tmp}"
     git clone https://gitlab.fel.cvut.cz/robolab/deploy.git
@@ -20,6 +22,7 @@ From: ros:melodic-ros-core
     ros=melodic \
         rosdep=y \
         rosinstall=$(pwd)/config/realsense.rosinstall \
-        scripts/setup_catkin_workspace "${ws}"
+        install="${ws}" \
+        scripts/setup_catkin_workspace "$(mktemp -d)"
 
     apt-get clean
