@@ -1,0 +1,8 @@
+- git:
+    local-name: point_cloud_color
+    uri: https://github.com/tpet/point_cloud_color.git
+    version: master
+- git:
+    local-name: voxel_map
+    uri: https://bitbucket.org/tpetricek/voxel_map.git
+    version: catkin
