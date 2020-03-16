@@ -5,7 +5,7 @@ From: ros:melodic-ros-core
     sudo /usr/bin/sudo
 
 %post
-    sudo apt-get update && sudo apt-get dist-upgrade
+    sudo apt-get update -y && sudo apt-get dist-upgrade -y
 
     tmp="$(mktemp -d)"
     cd "${tmp}"
@@ -13,10 +13,7 @@ From: ros:melodic-ros-core
     cd deploy
 
     scripts/install_librealsense
-
-    apt-get update -y \
-        && apt-get dist-upgrade -y \
-        && xargs -a config/realsense.apt apt-get install -y
+    xargs -a config/realsense.apt apt-get install -y
 
     ws=/opt/ros/realsense
     ros=melodic \
