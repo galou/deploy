@@ -6,12 +6,9 @@ cd "${dir}"
 
 # Images ordered to reflect dependencies.
 files="
-aro_melodic
-ros_kinetic_robolab
-ros_melodic_robolab
+robolab_melodic
 "
-# for f in ${files}; do
-for f in aro_melodic; do
+for f in robolab_melodic; do
     sudo rm -f "${f}.simg"
     sudo singularity build "${f}.simg" "${f}.txt" 2>&1 | tee "${f}.log" \
         && sudo chown ${USER}:${USER} "${f}.simg"
