@@ -11,7 +11,7 @@ From: ros:melodic-robot
     sudo /usr/bin/sudo
 
 %runscript
-    /opt/ros/robolab/devel/env.sh "$@"
+    /opt/ros/robolab/env.sh "$@"
 
 
 %post
