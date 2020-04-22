@@ -26,11 +26,17 @@ From: ros:melodic-robot
     scripts/install_gazebo
     xargs -a config/robolab_melodic.apt apt-get install -y
 
-    ws=/opt/ros/robolab
     ros=melodic \
         rosdep=y \
         rosinstall=$(pwd)/config/robolab_melodic.rosinstall \
-        install="${ws}" \
+        install=/opt/ros/robolab \
+        scripts/setup_catkin_workspace "$(mktemp -d)"
+
+    extend=/opt/ros/robolab \
+        ros=melodic \
+        rosdep=y \
+        rosinstall=$(pwd)/config/robolab_aro_melodic.rosinstall \
+        install=/opt/ros/aro \
         scripts/setup_catkin_workspace "$(mktemp -d)"
 
     apt-get clean
