@@ -33,6 +33,8 @@ ros-melodic-octomap-ros
 ros-melodic-rplidar-ros
 ros-melodic-tf2-geometry-msgs
 ros-melodic-tf2-sensor-msgs
+ros-melodic-turtlebot3
+ros-melodic-turtlebot3-simulations
 ros-melodic-yocs-controllers
 screen
 sshpass
