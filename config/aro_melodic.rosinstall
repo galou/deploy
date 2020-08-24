@@ -3,6 +3,10 @@
     uri: https://github.com/yujinrobot/kobuki.git
     version: melodic
 - git:
+    local-name: point_cloud_color
+    uri: https://github.com/tpet/point_cloud_color.git
+    version: master
+- git:
     local-name: realsense-ros
     uri: https://github.com/IntelRealSense/realsense-ros.git
     version: development
@@ -26,3 +30,7 @@
     local-name: turtlebot_simulator
     uri: https://github.com/turtlebot/turtlebot_simulator.git
     version: melodic
+- git:
+    local-name: voxel_map
+    uri: https://bitbucket.org/tpetricek/voxel_map.git
+    version: catkin
