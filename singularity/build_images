@@ -8,7 +8,7 @@ cd "${dir}"
 files="
 robolab_melodic
 "
-for f in robolab_melodic; do
+for f in $files; do
     sudo rm -f "${f}.simg"
     sudo singularity build "${f}.simg" "${f}.txt" 2>&1 | tee "${f}.log" \
         && sudo chown ${USER}:${USER} "${f}.simg"

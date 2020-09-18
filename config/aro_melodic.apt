@@ -7,6 +7,7 @@ git
 gitk
 git-gui
 mc
+mosh
 nano
 net-tools
 nmap

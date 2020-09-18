@@ -1,0 +1,4 @@
+- git:
+    local-name: ros_packages
+    uri: https://gitlab.ciirc.cvut.cz/imr/mkr/ros_packages.git
+    version: master

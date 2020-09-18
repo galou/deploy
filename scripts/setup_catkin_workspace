@@ -63,7 +63,7 @@ echo "Extended workspace: ${extend}"
 
 # Workspace rosinstall files
 if [ ! "${rosinstall}" ]; then
-    rosinstall="${dir}/../rosinstall/robolab.rosinstall ${dir}/../rosinstall/robolab_${ros}.rosinstall"
+    rosinstall="${dir}/../config/robolab.rosinstall ${dir}/../config/robolab_${ros}.rosinstall"
 fi
 if [ ! "${rosinstall}" ]; then
     echo 'ERROR: Workspace configuration rosinstall files not specified.'

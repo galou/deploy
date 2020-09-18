@@ -39,4 +39,11 @@ From: ros:melodic-robot
         install=/opt/ros/aro \
         scripts/setup_catkin_workspace "$(mktemp -d)"
 
+    extend=/opt/ros/robolab \
+        ros=melodic \
+        rosdep=y \
+        rosinstall=$(pwd)/config/robolab_mkr_melodic.rosinstall \
+        install=/opt/ros/mkr \
+        scripts/setup_catkin_workspace "$(mktemp -d)"
+
     apt-get clean
