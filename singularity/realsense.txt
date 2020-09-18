@@ -1,0 +1,25 @@
+Bootstrap: docker
+From: ros:melodic-ros-core
+
+%files
+    sudo /usr/bin/sudo
+
+%post
+    sudo apt-get update -y && sudo apt-get dist-upgrade -y
+
+    tmp="$(mktemp -d)"
+    cd "${tmp}"
+    git clone https://gitlab.fel.cvut.cz/robolab/deploy.git
+    cd deploy
+
+    scripts/install_librealsense
+    xargs -a config/realsense.apt apt-get install -y
+
+    ws=/opt/ros/realsense
+    ros=melodic \
+        rosdep=y \
+        rosinstall=$(pwd)/config/realsense.rosinstall \
+        install="${ws}" \
+        scripts/setup_catkin_workspace "$(mktemp -d)"
+
+    apt-get clean

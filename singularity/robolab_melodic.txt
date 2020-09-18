@@ -1,0 +1,42 @@
+Bootstrap: docker
+From: ros:melodic-robot
+
+%help
+    ROS Melodic for courses taught at Department of Cybernetics,
+    Czech Technical University in Prague.
+    The main use is for the TurtleBots in the Robolab (KN:E-130).
+    See https://gitlab.fel.cvut.cz/robolab for more information.
+
+%files
+    sudo /usr/bin/sudo
+
+%runscript
+    /opt/ros/robolab/env.sh "$@"
+
+
+%post
+    sudo apt-get update -y && sudo apt-get dist-upgrade -y
+
+    tmp="$(mktemp -d)"
+    cd "${tmp}"
+    git clone https://gitlab.fel.cvut.cz/robolab/deploy.git
+    cd deploy
+
+    scripts/install_librealsense
+    scripts/install_gazebo
+    xargs -a config/robolab_melodic.apt apt-get install -y
+
+    ros=melodic \
+        rosdep=y \
+        rosinstall=$(pwd)/config/robolab_melodic.rosinstall \
+        install=/opt/ros/robolab \
+        scripts/setup_catkin_workspace "$(mktemp -d)"
+
+    extend=/opt/ros/robolab \
+        ros=melodic \
+        rosdep=y \
+        rosinstall=$(pwd)/config/robolab_aro_melodic.rosinstall \
+        install=/opt/ros/aro \
+        scripts/setup_catkin_workspace "$(mktemp -d)"
+
+    apt-get clean

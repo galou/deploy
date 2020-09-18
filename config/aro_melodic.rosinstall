@@ -1,0 +1,36 @@
+- git:
+    local-name: kobuki
+    uri: https://github.com/yujinrobot/kobuki.git
+    version: melodic
+- git:
+    local-name: point_cloud_color
+    uri: https://github.com/tpet/point_cloud_color.git
+    version: master
+- git:
+    local-name: realsense-ros
+    uri: https://github.com/IntelRealSense/realsense-ros.git
+    version: development
+- git:
+    local-name: robolab
+    uri: https://gitlab.fel.cvut.cz/robolab/robolab.git
+    version: master
+- git:
+    local-name: ros_numpy
+    uri: https://github.com/eric-wieser/ros_numpy.git
+    version: master
+- git:
+    local-name: tf_static_publisher
+    uri: https://github.com/tpet/tf_static_publisher.git
+    version: master
+- git:
+    local-name: turtlebot
+    uri: https://github.com/turtlebot/turtlebot.git
+    version: melodic
+- git:
+    local-name: turtlebot_simulator
+    uri: https://github.com/turtlebot/turtlebot_simulator.git
+    version: melodic
+- git:
+    local-name: voxel_map
+    uri: https://bitbucket.org/tpetricek/voxel_map.git
+    version: catkin

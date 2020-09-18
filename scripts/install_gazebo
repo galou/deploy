@@ -1,0 +1,14 @@
+#!/bin/bash
+# Install Gazebo library.
+set -e
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+sudo apt-get -y install curl
+
+curl -sSL 'http://packages.osrfoundation.org/gazebo.key' | sudo apt-key add -
+sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" > /etc/apt/sources.list.d/gazebo-stable.list'
+packages="
+gazebo9
+libgazebo9-dev
+"
+sudo apt-get -y update && sudo apt-get -y install ${packages}
