@@ -7,10 +7,6 @@
     uri: https://gitlab.ciirc.cvut.cz/rop/teaching/turtlebot.git
     version: master
 - git:
-    local-name: ros_numpy
-    uri: https://github.com/eric-wieser/ros_numpy.git
-    version: master
-- git:
     local-name: tf_static_publisher
     uri: https://github.com/tpet/tf_static_publisher.git
     version: master

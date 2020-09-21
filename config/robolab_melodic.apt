@@ -30,6 +30,7 @@ ros-melodic-ecl-streams
 ros-melodic-kobuki-core
 ros-melodic-kobuki-msgs
 ros-melodic-octomap-ros
+ros-melodic-ros-numpy
 ros-melodic-rplidar-ros
 ros-melodic-tf2-geometry-msgs
 ros-melodic-tf2-sensor-msgs

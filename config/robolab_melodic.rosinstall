@@ -11,14 +11,6 @@
     uri: https://gitlab.fel.cvut.cz/robolab/robolab.git
     version: master
 - git:
-    local-name: ros_numpy
-    uri: https://github.com/eric-wieser/ros_numpy.git
-    version: master
-- git:
-    local-name: tf_static_publisher
-    uri: https://github.com/tpet/tf_static_publisher.git
-    version: master
-- git:
     local-name: turtlebot
     uri: https://github.com/turtlebot/turtlebot.git
     version: melodic
